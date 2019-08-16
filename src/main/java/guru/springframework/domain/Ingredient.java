@@ -18,6 +18,9 @@ public class Ingredient {
     private String description;
     private BigDecimal amount;
 
+    public Ingredient() {
+    }
+
     @OneToOne
     private UnitOfMeasure unitOfMeasure;
 
