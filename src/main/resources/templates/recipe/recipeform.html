@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipe form</title>
+</head>
+<body>
+<!--/*@thymesVar id="recipe" type="guru.springframework.domain.Recipe"*/-->
+<div style="margin-top: 20px">
+    <div>
+        <div>
+            <form  th:object="${recipe}" th:action="@{/recipe/}"  method="post">
+                <input type="hidden" th:field="*{id}"/>
+                <div>
+                    <div>
+                        <div>
+                            <h1>Edit Recipe Information</h1>
+                        </div>
+                        <div>
+                            <div>
+                                <div>
+                                    <label>Recipe Description:</label>
+                                    <input type="text"  th:field="*{description}"/>
+                                </div>
+                            </div>
+                            <div >
+                                <div>
+                                    <label>Categories:</label>
+                                </div>
+                                <div >
+                                    <div >
+                                        <label>
+                                            <input type="checkbox" value=""/>
+                                            Cat 1
+                                        </label>
+                                    </div>
+                                    <div th:remove="all">
+                                        <label>
+                                            <input type="checkbox" value=""/>
+                                            Cat 2
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div >
+                                <div>
+                                    <label>Prep Time:</label>
+                                    <input type="text"  th:field="*{prepTime}"/>
+                                </div>
+                                <div >
+                                    <label>Cooktime:</label>
+                                    <input type="text"  th:field="*{cookTime}"/>
+                                </div>
+                                <div >
+                                    <label>Difficulty:</label>
+                                    <select >
+                                        <option>Easy</option>
+                                        <option>Medium</option>
+                                        <option>Hard</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div >
+                                <div >
+                                    <label>Servings:</label>
+                                    <input type="text" th:field="*{servings}"/>
+                                </div>
+                                <div >
+                                    <label>Source:</label>
+                                    <input type="text" th:field="*{source}"/>
+                                </div>
+                                <div >
+                                    <label>URL:</label>
+                                    <input type="text" th:field="*{url}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div >
+                            <div >
+                                <div >
+                                    <h1 >Ingredients</h1>
+                                </div>
+                                <div >
+                                    <a  href="#" role="button">Edit</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div >
+                            <div >
+                                <div >
+                                    <ul>
+                                        <li th:remove="all">1 Cup of milk</li>
+                                        <li th:remove="all">1 Teaspoon of chocolate</li>
+                                        <li th:each="ingredient : ${recipe.ingredients}"
+                                            th:text="${(ingredient.getAmount() +
+                                        ' ' + ingredient.unitOfMeasure.getDescription() +
+                                        ' - ' + ingredient.getDescription())}">1 Teaspoon of Sugar
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div >
+                        <div >
+                            <h1 >Directions</h1>
+                        </div>
+                        <div >
+                            <div >
+                                <div >
+                                    <textarea rows="3" th:field="*{directions}"></textarea></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div >
+                        <div >
+                            <h1 >Notes</h1>
+                        </div>
+                        <div >
+                            <div >
+                                <div >
+                                    <textarea rows="3" th:field="*{notes.recipeNotes}"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" >Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

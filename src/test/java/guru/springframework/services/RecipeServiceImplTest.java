@@ -1,5 +1,7 @@
 package guru.springframework.services;
 
+import guru.springframework.converters.RecipeCommandToRecipe;
+import guru.springframework.converters.RecipeToRecipeCommand;
 import guru.springframework.domain.Recipe;
 import guru.springframework.repositories.RecipeRepository;
 import org.junit.Before;
@@ -21,6 +23,10 @@ public class RecipeServiceImplTest {
     
     @Mock
     private RecipeRepository recipeRepository;
+    @Mock
+    private RecipeCommandToRecipe recipeCommandToRecipe;
+    @Mock
+    private RecipeToRecipeCommand recipeToRecipeCommand;
 
     @Before
     public void setUp() throws Exception {
@@ -62,5 +68,14 @@ public class RecipeServiceImplTest {
         Recipe recipe = recipeService.findById(id);
 
         assertEquals(expectedRecipe, recipe);
+    }
+
+    @Test
+    public void should_call_repository_deletion_method_with_ID_when_service_ask_for_delete_with_ID() {
+        Long idToDelete = 1L;
+
+        recipeService.deleteById(idToDelete);
+
+        verify(recipeRepository).deleteById(idToDelete);
     }
 }
