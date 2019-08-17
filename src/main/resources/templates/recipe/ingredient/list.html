@@ -30,7 +30,7 @@
                             </thead>
                             <tr th:each="ingredient : ${recipe.ingredients}">
                                 <td th:text="${ingredient.id}">334</td>
-                                <td th:text="${ingredient.amount} + ' ' + ${ingredient.unitOfMeasure.description} + ' ' + ${ingredient.description} + '/show'">
+                                <td th:text="${ingredient.amount} + ' ' + ${ingredient.unitOfMeasure.description} + ' ' + ${ingredient.description}">
                                     Tasty Goodnees 3
                                 </td>
                                 <td><a href="#"
