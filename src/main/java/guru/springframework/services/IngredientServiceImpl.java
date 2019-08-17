@@ -76,4 +76,20 @@ public class IngredientServiceImpl implements IngredientService {
             return  ingredientToIngredientCommand.convert(savedOptionalIngredient.get());
         }
     }
+
+    @Override
+    public void deleteById(Long recipeId, Long ingredientId) {
+        Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(() -> new RuntimeException("no recipe for that id" + ingredientId));
+        boolean isRemoved = recipe.getIngredients().removeIf(ingredient -> {
+            if(ingredientId.equals(ingredient.getId())){
+                ingredient.setRecipe(null);
+                return true;
+            }
+            return false;
+        });
+        if(!isRemoved) {
+            throw new RuntimeException("no ingredient to remove");
+        }
+        recipeRepository.save(recipe);
+    }
 }
