@@ -11,7 +11,14 @@
             <div>
                 <div>
                     <div>
-                        <h1 class="panel-title" th:text="${recipe.description}">Recipe Description Here!</h1>
+                        <div>
+                            <h1 class="panel-title" th:text="${recipe.description}">Recipe Description Here!</h1>
+                        </div>
+
+                        <div>
+                            <a class="btn btn-default" href="#"
+                               th:href="@{'/recipe/' + ${recipe.id} + '/image'}" role="button">Change Image</a>
+                        </div>
                     </div>
                     <div>
                         <div>
@@ -22,6 +29,11 @@
                                 <ul>
                                     <li th:each="category : ${recipe.categories}" th:text="${category.getDescription()}">cat one</li>
                                 </ul>
+                            </div>
+                            <div>
+                                <img src="../../static/images/default_food.jpg"
+                                     th:src="@{'/recipe/' + ${recipe.id} + '/recipeimage'}"
+                                     width="200" height="200">
                             </div>
                         </div>
                         <div>
