@@ -6,7 +6,6 @@ import guru.springframework.services.RecipeService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
@@ -37,7 +36,8 @@ public class ImageControllerTest {
         MockitoAnnotations.initMocks(this);
 
         imageController = new ImageController(imageService, recipeService);
-        mockMvc = MockMvcBuilders.standaloneSetup(imageController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(imageController)
+                .setControllerAdvice(ControllerExceptionHandler.class).build();
     }
 
     @Test
@@ -55,7 +55,6 @@ public class ImageControllerTest {
 
     @Test
     public void handle_image() throws Exception {
-
         MockMultipartFile multipartFile = new MockMultipartFile("imagefile", "testing.txt", "text/plain", "testo".getBytes());
 
         mockMvc.perform(multipart("/recipe/1/image").file(multipartFile))
@@ -63,6 +62,15 @@ public class ImageControllerTest {
                 .andExpect(header().string("location", "/recipe/1/show"));
 
         verify(imageService, times(1)).saveImageFile(anyLong(), any());
+    }
+
+    @Test
+    public void testGetImageNumberformat() throws Exception {
+
+        String itShouldBeANumber = "eaeaea";
+        mockMvc.perform(get("/recipe/" + itShouldBeANumber + "/image"))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(view().name("422error"));
     }
 
 }

@@ -63,13 +63,4 @@ public class RecipeController {
         modelAndView.addObject("exception", exception);
         return modelAndView;
     }
-
-    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-    @ExceptionHandler(NumberFormatException.class)
-    public ModelAndView handleNumberFormat(Exception exception) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("422error");
-        modelAndView.addObject("exception", exception);
-        return modelAndView;
-    }
 }
